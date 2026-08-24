@@ -9,5 +9,15 @@ await writeFile('dist/server/index.js', `const SECURITY_HEADERS={
   'Permissions-Policy':'camera=(), microphone=(), geolocation=()',
   'Cross-Origin-Opener-Policy':'same-origin'
 };
-export default {async fetch(request,env){const response=await env.ASSETS.fetch(request);const headers=new Headers(response.headers);for(const [key,value] of Object.entries(SECURITY_HEADERS))headers.set(key,value);if(new URL(request.url).pathname==='/sw.js')headers.set('Cache-Control','no-cache');return new Response(response.body,{status:response.status,statusText:response.statusText,headers})}};\n`);
+export default {async fetch(request,env){
+  const url=new URL(request.url);
+  const wantsHtml=request.headers.get('accept')?.includes('text/html');
+  if(url.pathname==='/')url.pathname='/index.html';
+  let response=await env.ASSETS.fetch(new Request(url,request));
+  if(response.status===404&&wantsHtml){url.pathname='/index.html';response=await env.ASSETS.fetch(new Request(url,request))}
+  const headers=new Headers(response.headers);
+  for(const [key,value] of Object.entries(SECURITY_HEADERS))headers.set(key,value);
+  if(url.pathname==='/sw.js')headers.set('Cache-Control','no-cache');
+  return new Response(response.body,{status:response.status,statusText:response.statusText,headers})
+}};\n`);
 
