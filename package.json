@@ -1,0 +1,20 @@
+{
+  "name": "harvest-lane",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc && vite build --configLoader runner && node scripts/prepare-hosting.mjs",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "phaser": "^3.90.0"
+  },
+  "devDependencies": {
+    "@openai/sites-vite-plugin": "^0.2.0",
+    "typescript": "^5.8.3",
+    "vite": "^8.0.0"
+  }
+}
+
