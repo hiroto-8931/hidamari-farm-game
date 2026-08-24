@@ -1,0 +1,4 @@
+{
+  "name":"ひだまり農園","short_name":"ひだまり農園","description":"のんびり遊べる横向き農業ゲーム","start_url":"/","display":"standalone","orientation":"landscape","background_color":"#1d3152","theme_color":"#55b96d","icons":[{"src":"/icons/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
+
